@@ -4,8 +4,8 @@
 
 const int	MAX_MUROS = 10;
 const float	SEPARACION_MUROS_X = 500;
-const float	MIN_ALTURA_HUECO_MURO = 10;
-const float	MAX_ALTURA_HUECO_MURO = 800;
+const float	MIN_ALTURA_HUECO_MURO = 200;
+const float	MAX_ALTURA_HUECO_MURO = 900;
 const float	VELOCIDAD_MUROS_X = 0.5f;
 
 Muro muros[MAX_MUROS];
@@ -23,8 +23,8 @@ void	IniciaMuros()
 	{
 		ptr->posX = pos_x;
 		ptr->anchura = 50;
-		ptr->alturaSuperior = NOE_ObtenNumeroAleatorio(0, NOE_ObtenAltoPantalla() - 180);
-		ptr->alturaInferior = NOE_ObtenNumeroAleatorio(ptr->alturaSuperior + 150, NOE_ObtenAltoPantalla() ); 
+		ptr->alturaSuperior = NOE_ObtenNumeroAleatorio(200, NOE_ObtenAltoPantalla() - 180);
+		ptr->alturaInferior = NOE_ObtenNumeroAleatorio(ptr->alturaSuperior + 200, NOE_ObtenAltoPantalla() ); 
 		pos_x += ptr->anchura + SEPARACION_MUROS_X;
 		ptr++;
 	}
