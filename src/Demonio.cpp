@@ -5,8 +5,8 @@
 Demonio	demonio;
 const float	POS_INICIAL_DEMONIO_X = 100.0f;
 const float	POS_INICIAL_DEMONIO_Y = 100.0f;
-const float	GRAVEDAD_DEMONIO_Y = 0.0045f;
-const float	IMPULSO_DEMONIO_Y = -0.0038f;
+const float	GRAVEDAD_DEMONIO_Y = 0.0035f;
+const float	IMPULSO_DEMONIO_Y = -1.2f;
 const float	ANCHURA_DEMONIO = 150.0f;
 const float	ALTURA_DEMONIO = 150.0f;
 
@@ -40,7 +40,7 @@ void	ActualizaDemonio()
 		NOE_ReproduceSonido(2, 10, 100);
 	}
 
-	if (NOE_ObtenTeclaPulsada(NOE_TECLA_ESPACIO))
+	if (NOE_ObtenTeclaAbajo(NOE_TECLA_ESPACIO))
 		demonio.velocidadY += IMPULSO_DEMONIO_Y;
 	
 	if (demonio.posY < 0)

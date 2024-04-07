@@ -20,7 +20,7 @@ float		miliseconds;
 int		estado;
 int		seleccionado;
 float		puntuacion;
-int		Buttons[5] = {INACTIVE , INACTIVE, INACTIVE, INACTIVE, INACTIVE};
+int		Buttons[6] = {INACTIVE , INACTIVE, INACTIVE, INACTIVE, INACTIVE, INACTIVE};
 int		music[2] = {INACTIVE, INACTIVE};
 int		soundButtonActive = 0;
 
@@ -137,9 +137,19 @@ static void	Retry(float porcentX, float porcentY, int anchoSprite, int altoSprit
 	}
 }
 
-static void	Quit(float porcentX, float porcentY, int anchoSprite, int altoSprite)
+static void	QuitGame1(float porcentX, float porcentY, int anchoSprite, int altoSprite)
 {
 	if (NOE_ObtenBotonRatonAbajo(NOE_BOTONRATON_PRINCIPAL) && (estado == 3) && 
+			(NOE_ObtenPosicionRatonX() >= NOE_ObtenAnchoPantalla() * porcentX &&
+			NOE_ObtenPosicionRatonX() <= NOE_ObtenAnchoPantalla() * porcentX + anchoSprite) &&
+			(NOE_ObtenPosicionRatonY() >= NOE_ObtenAltoPantalla() * porcentY &&
+			 NOE_ObtenPosicionRatonY() <= NOE_ObtenAltoPantalla() * porcentY + altoSprite))
+		seleccionado = 4;
+}
+
+static void	QuitGame2(float porcentX, float porcentY, int anchoSprite, int altoSprite)
+{
+	if (NOE_ObtenBotonRatonAbajo(NOE_BOTONRATON_PRINCIPAL) && (estado == 0) && 
 			(NOE_ObtenPosicionRatonX() >= NOE_ObtenAnchoPantalla() * porcentX &&
 			NOE_ObtenPosicionRatonX() <= NOE_ObtenAnchoPantalla() * porcentX + anchoSprite) &&
 			(NOE_ObtenPosicionRatonY() >= NOE_ObtenAltoPantalla() * porcentY &&
@@ -164,7 +174,8 @@ void	ActualizaEstado()
 	HowToPlay(0.55f, 0.66f, 234, 65);
 	Menu(0.05f, 0.86f, 234, 65);
 	Retry(0.3f, 0.66f, 250, 65);
-	Quit(0.55f, 0.66f, 250, 65);
+	QuitGame1(0.55f, 0.66f, 250, 65);
+	QuitGame2(0.42f, 0.8f, 250, 65);
 	Return();
 	if (soundButtonActive)
 		NOE_ReproduceSonido(1, 20, 100);
@@ -208,6 +219,8 @@ void	DibujaEstado()
 			NOE_DibujaTexto("PLAY", NOE_ObtenAnchoPantalla() * 0.35f, NOE_ObtenAltoPantalla() * 0.69f, 25, 25, 0);
 			RenderSpriteClick(0.55f, 0.66f, 234, 65, 1);
 			NOE_DibujaTexto("HOW TO PLAY", NOE_ObtenAnchoPantalla() * 0.58f, NOE_ObtenAltoPantalla() * 0.69f, 15, 25, 0);
+			RenderSpriteClick(0.42f, 0.8f, 234, 65, 5);
+			NOE_DibujaTexto("EXIT", NOE_ObtenAnchoPantalla() * 0.48f, NOE_ObtenAltoPantalla() * 0.83f, 15, 25, 0);
 			break ;
 		case 1:
 			NOE_DibujaDecorado(1);
@@ -224,9 +237,9 @@ void	DibujaEstado()
 		case 3:
 			NOE_DibujaDecorado(0);
 			RenderSpriteClick(0.3f, 0.66f, 250, 65, 3);
-			NOE_DibujaTexto("INTENTAR", NOE_ObtenAnchoPantalla() * 0.32f, NOE_ObtenAltoPantalla() * 0.69f, 25, 25, 0);
+			NOE_DibujaTexto("RETRY", NOE_ObtenAnchoPantalla() * 0.32f, NOE_ObtenAltoPantalla() * 0.69f, 25, 25, 0);
 			RenderSpriteClick(0.55f, 0.66f, 234, 65, 4);
-			NOE_DibujaTexto("SALIR", NOE_ObtenAnchoPantalla() * 0.58f, NOE_ObtenAltoPantalla() * 0.69f, 25, 25, 0);
+			NOE_DibujaTexto("EXIT", NOE_ObtenAnchoPantalla() * 0.58f, NOE_ObtenAltoPantalla() * 0.69f, 25, 25, 0);
 			break ;
 	}
 }

@@ -5,7 +5,7 @@
 const int	MAX_MUROS = 10;
 const float	SEPARACION_MUROS_X = 500;
 const float	MIN_ALTURA_HUECO_MURO = 200;
-const float	MAX_ALTURA_HUECO_MURO = 900;
+const float	MAX_ALTURA_HUECO_MURO = 500;
 const float	VELOCIDAD_MUROS_X = 0.5f;
 
 Muro muros[MAX_MUROS];
@@ -21,10 +21,12 @@ void	IniciaMuros()
 	ptr = muros;
 	while (i++ < MAX_MUROS)
 	{
+		float	tamanioHueco;
+		tamanioHueco = NOE_ObtenNumeroAleatorio(MIN_ALTURA_HUECO_MURO, MAX_ALTURA_HUECO_MURO);
 		ptr->posX = pos_x;
 		ptr->anchura = 50;
-		ptr->alturaSuperior = NOE_ObtenNumeroAleatorio(200, NOE_ObtenAltoPantalla() - 180);
-		ptr->alturaInferior = NOE_ObtenNumeroAleatorio(ptr->alturaSuperior + 200, NOE_ObtenAltoPantalla() ); 
+		ptr->alturaSuperior = NOE_ObtenNumeroAleatorio(100, NOE_ObtenAltoPantalla() - 100 - tamanioHueco);
+		ptr->alturaInferior = ptr->alturaSuperior + tamanioHueco; 
 		pos_x += ptr->anchura + SEPARACION_MUROS_X;
 		ptr++;
 	}
@@ -42,6 +44,8 @@ void	ActualizaMuros()
 	ptr = muros;
 	while (i++ < MAX_MUROS)
 	{
+		float	tamanioHueco;
+		tamanioHueco = NOE_ObtenNumeroAleatorio(MIN_ALTURA_HUECO_MURO, MAX_ALTURA_HUECO_MURO);
 		ptr->posX = (ptr->posX) - (VELOCIDAD_MUROS_X * NOE_ObtenTiempoDesdeActualizacion());
 		if ((ptr->posX + ptr->anchura) < 0)
 		{
@@ -50,8 +54,8 @@ void	ActualizaMuros()
 				if (muros[j].posX > max_posx)
 					max_posx = muros[j].posX;
 			ptr->posX = max_posx + ptr->anchura + SEPARACION_MUROS_X;
-			ptr->alturaSuperior = NOE_ObtenNumeroAleatorio(0, NOE_ObtenAltoPantalla() - 180);
-			ptr->alturaInferior = NOE_ObtenNumeroAleatorio(ptr->alturaSuperior + 150, NOE_ObtenAltoPantalla() ); 
+			ptr->alturaSuperior = NOE_ObtenNumeroAleatorio(100, NOE_ObtenAltoPantalla() - 100 - tamanioHueco);
+			ptr->alturaInferior = ptr->alturaSuperior + tamanioHueco; 
 		}
 		ptr++;
 	}
@@ -82,25 +86,6 @@ int	ChocaConMuro(float posX, float posY, float ancho, float alto)
 		ptr++;
 	}
 	return (colision);
-	/*while (i++ < MAX_MUROS)
-	{
-		if ((ptr->posX <= (posX + ancho) && ptr->posX >= posX + 50) ||
-			((ptr->posX + ptr->anchura) <= (posX + ancho) && (ptr->posX + ptr->anchura) >= posX + 50) ||
-			((ptr->posX) <= posX + 50 && (ptr->posX + ptr->anchura) > posX + ancho))
-		{
-			if (posY + 85 <= ptr->alturaSuperior || posY + alto - 50>= ptr->alturaInferior)
-				return (1);
-			else
-				colision = 0;
-		}
-		else
-			colision = 0;
-		ptr++;
-
-
-	}
-	return (colision);
-	*/
 }
 
 float	ObtenVelocidadMuros()
